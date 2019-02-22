@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package chat;
+
+service Chat {
+    rpc Send(Message) returns (Error);
+    rpc Stream(Filter) returns (stream Message);
+}
+
+message Filter {
+    int32 id = 1;
+}
+
+message Message {
+    string from = 1;
+    string content = 2;
+}
+
+message Error {
+    int32 code = 1;
+    string detail = 2;
+}

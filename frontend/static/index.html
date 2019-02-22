@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>4th Athens Gophers Meetup</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+            <form name="myform" onsubmit="return sendData(this)">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                          <img src="img/600_470256820.png" class="img-responsive center-block">
+                          <h2 class="text-center">4th Athens Gophers Meetup</h2>
+                        </div>
+                      </div>
+                      <br/>
+                      <br/>
+                      
+                      <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                          <div class="form-group">
+                            <label for="message" class="lead bold">Enter your message</label>
+                            <textarea class="form-control" style="font-size: 18px" name="message" id="message"></textarea>
+                          </div>
+                          <div id="characters">154 characters left</div><br/>
+                        </div>
+                      </div>
+                      
+                      <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                          <button type="submit" id="submit" class="btn btn-success" value="Submit">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                  <script language="javascript">
+                        function sendData(f) {
+                          var xhr = new XMLHttpRequest();
+                          xhr.open("POST", "/v1/chat", true);
+                          xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+                  
+                          xhr.send('{"message":"' + f['message'].value + '"}');
+
+                          xhr.onloadend = function () {
+                            alert('Message Sent!');
+                            $("#message").val('');
+                            $("#characters").text('154 characters left');
+                            $('#submit').prop('disabled', false);
+                          };
+                  
+                          $('#submit').prop('disabled', true);
+                          return false;
+                        }
+                  
+                        $("#message").on('change keyup paste', function() {
+                          length = this.value.length;
+                          left = 154 - length;                          
+                          $("#characters").text(left + " characters left");
+                        });
+                      </script>
+    </body>
+</html>
