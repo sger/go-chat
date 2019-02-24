@@ -9,9 +9,6 @@ protos:
  --go_out=plugins=grpc:. \
  protos/chat.proto
 
- cli:
-	go build -o cli cli/cli.go
-
  ios:
 	gomobile bind -target=ios github.com/sger/go-chat/backend/client
 
